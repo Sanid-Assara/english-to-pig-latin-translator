@@ -56,17 +56,15 @@ for (let i = 0; i < words.length; i++) {
     consonants.some((consonant) => consonant === wordLetters[0]) &&
     vowels.some((vowel) => vowel === wordLetters[1])
   ) {
-    translatedWord = words[i].slice(2) + "ay";
+    translatedWord = words[i].slice(1) + words[i].substring(0, 1) + "ay";
     translatedPhrase.push(translatedWord);
   } else if (
     consonants.some(
       (consonant) => consonant === wordLetters[0] && wordLetters[1]
     )
   ) {
-    translatedWord = words[i].slice(2) + "ay";
+    translatedWord = words[i].slice(2) + words[i].substring(0, 2) + "ay";
     translatedPhrase.push(translatedWord);
-  } else {
-    console.log("something else");
   }
 }
 
