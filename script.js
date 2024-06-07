@@ -1,4 +1,5 @@
-const words = process.argv[2].replace(/[.,;:"'_]/g, "").split(" ");
+const colors = require("colors");
+const phrase = process.argv[2].replace(/[.,;:"'_]/g, "").split(" ");
 const vowels = ["a", "A", "e", "E", "i", "I", "o", "O", "u", "U"];
 const consonants = [
   "b",
@@ -46,12 +47,13 @@ const consonants = [
 ];
 let translatedWord;
 const translatedPhrase = [];
+let wordLetters = [];
 
-for (let i = 0; i < words.length; i++) {
-  const wordLetters = words[i].split("");
+for (let i = 0; i < phrase.length; i++) {
+  wordLetters = phrase[i].split("");
   //If a word starts with a vowel
   if (vowels.some((vowel) => vowel === wordLetters[0])) {
-    translatedWord = words[i] + "way";
+    translatedWord = phrase[i] + "way";
     translatedPhrase.push(translatedWord);
     //If a word starts with a consonant and a vowel
   } else if (
@@ -59,13 +61,13 @@ for (let i = 0; i < words.length; i++) {
     vowels.some((vowel) => vowel === wordLetters[1])
   ) {
     if (wordLetters[0] === wordLetters[0].toLowerCase()) {
-      translatedWord = words[i].slice(1) + words[i].substring(0, 1) + "ay";
+      translatedWord = phrase[i].slice(1) + phrase[i].substring(0, 1) + "ay";
       translatedPhrase.push(translatedWord);
     } else if (wordLetters[0] === wordLetters[0].toUpperCase()) {
       translatedWord =
-        words[i].substring(1, 2).toUpperCase() +
-        words[i].slice(2) +
-        words[i].substring(0, 1).toLowerCase() +
+        phrase[i].substring(1, 2).toUpperCase() +
+        phrase[i].slice(2) +
+        phrase[i].substring(0, 1).toLowerCase() +
         "ay";
       translatedPhrase.push(translatedWord);
     }
@@ -76,17 +78,18 @@ for (let i = 0; i < words.length; i++) {
     )
   ) {
     if (wordLetters[0] === wordLetters[0].toLowerCase()) {
-      translatedWord = words[i].slice(2) + words[i].substring(0, 2) + "ay";
+      translatedWord = phrase[i].slice(2) + phrase[i].substring(0, 2) + "ay";
       translatedPhrase.push(translatedWord);
     } else if (wordLetters[0] === wordLetters[0].toUpperCase()) {
       translatedWord =
-        words[i].substring(0, 1).toUpperCase() +
-        words[i].slice(3) +
-        words[i].substring(0, 2).toLowerCase() +
+        phrase[i].substring(2, 3).toUpperCase() +
+        phrase[i].slice(3) +
+        phrase[i].substring(0, 2).toLowerCase() +
         "ay";
       translatedPhrase.push(translatedWord);
     }
   }
 }
 
-console.log(translatedPhrase.join(" "));
+console.log(`After processing your input of "${phrase.join(" ").red}"
+the translation is: "${translatedPhrase.join(" ").green}"`);
